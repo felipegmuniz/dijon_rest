@@ -1,5 +1,5 @@
 import folium
-from folium.plugins import Search, MarkerCluster, HeatMap
+from folium.plugins import MarkerCluster, HeatMap
 import pandas as pd
 
 # Load the Excel file
@@ -74,14 +74,6 @@ heatmap = HeatMap(heat_data, name='Distribution View').add_to(m)
 # Add layer control to the map
 folium.LayerControl().add_to(m)
 
-# Add search functionality
-search = Search(
-    layer=marker_cluster,
-    search_label='title',
-    placeholder='Search for a restaurant...',
-    search_zoom=14,
-).add_to(m)
-
 # Create a legend with adjusted size
 legend_html = """
 <div style="position: fixed; 
@@ -106,4 +98,4 @@ m.get_root().html.add_child(folium.Element(legend_html))
 # Save the map to an HTML file
 m.save('dijon_establishments_combined.html')
 
-print("Map with detailed view and distribution created with layers and saved as 'dijon_establishments_combined.html'")
+print("Map created without search functionality and saved as 'dijon_establishments_combined.html'")
