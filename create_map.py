@@ -3,7 +3,7 @@ from folium.plugins import MarkerCluster, HeatMap
 import pandas as pd
 
 # Load the Excel file
-file_path = r'C:\Users\norsk\dijon_rest\dijon_et_beaune.xlsx'
+file_path = 'C:\\Users\\norsk\\dijon_rest\\dijon_et_beaune.xlsx'
 data = pd.read_excel(file_path)
 
 # Function to simplify categories
@@ -29,32 +29,47 @@ category_colors = {
 # Create the map
 m = folium.Map(location=[47.3220, 5.0415], zoom_start=13)
 
-# Create a marker cluster
-marker_cluster = MarkerCluster().add_to(m)
+# Create a marker cluster and explicitly name it
+marker_cluster = MarkerCluster(name='Liste d\'établissements').add_to(m)
 
-# Add markers to the cluster
+# Adding markers with custom popups
 for index, row in data.iterrows():
-    marker = folium.Marker(
+    color = category_colors.get(row['categoryName'], 'gray')
+    popup_html = f"""
+    <div style="font-size: 12px; width: 200px;">
+        <b style="font-size: 14px;">{row['title']}</b><br>
+        {row['street']}<br>
+        {row['postalCode']} {row['city']}<br>
+        {row['categoryName']}
+    </div>
+    """
+    folium.Marker(
         location=[row['latitude'], row['longitude']],
-        popup=(
-            f"<b>{row['title']}</b><br>"
-            f"{row['street']}<br>{row['city']} {row['postalCode']}<br>"
-            f"{row['phone']}<br>{row['categoryName']}"
-        ),
+        popup=folium.Popup(popup_html, max_width=250),
+        icon=folium.Icon(color=color),
         tooltip=row['title']
-    )
-    marker.add_to(marker_cluster)
+    ).add_to(marker_cluster)
 
-# Add the search functionality to the marker cluster
-search = Search(
-    layer=marker_cluster,  # Correctly attaching to the marker cluster
-    search_label='title',  # Ensure this matches your DataFrame's column name
-    placeholder='Search for a restaurant...',
-    search_zoom=14,
-).add_to(m)
+# Add heatmap layer
+heat_data = [[row['latitude'], row['longitude']] for index, row in data.iterrows()]
+heatmap = HeatMap(heat_data, name='Heatmap Distribution')
+m.add_child(heatmap)
 
-# Save the map to an HTML file
+# Create a wider legend
+legend_html = '''
+<div style="position: fixed; 
+            bottom: 50px; left: 50px; width: 200px; height: auto; 
+            background-color: white; border:2px solid grey; z-index:9999; font-size:14px;
+            overflow: auto; padding: 10px;">
+<b>Legend</b><br>'''
+for category, color in category_colors.items():
+    legend_html += f'<i style="background:{color};width: 12px;height: 12px;float: left;margin-right: 5px;"></i> {category}<br>'
+legend_html += '</div>'
+m.get_root().html.add_child(folium.Element(legend_html))
+
+# Add layer controls to toggle visibility
+folium.LayerControl().add_to(m)
+
+# Save the map
 m.save('dijon_restaurants_map.html')
-
-# Optionally, print a message when done
-print("Map created and saved as 'dijon_restaurants_map.html'")
+print("Map updated with a wider legend and saved as 'dijon_restaurants_map.html'")
