@@ -71,5 +71,5 @@ m.get_root().html.add_child(folium.Element(legend_html))
 folium.LayerControl().add_to(m)
 
 # Save the map
-m.save('dijon_restaurants_map.html')
+m.save('index.html')
 print("Map updated with a wider legend and saved as 'dijon_restaurants_map.html'")
