@@ -87,7 +87,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 ## Deployment
 
 The project is live at: &#x20;
-👉 [https://felipegmuniz.github.io/dijon\_rest/index.html](https://felipegmuniz.github.io/dijon_rest/index.html)
+ [https://felipegmuniz.github.io/dijon\_rest/index.html](https://felipegmuniz.github.io/dijon_rest/index.html)
 
 ---
 
