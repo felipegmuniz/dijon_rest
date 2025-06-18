@@ -1,7 +1,6 @@
 # Dijon & Beaune Lead Mapping Tool
 
-**Author**: Felipe G. Muniz &#x20;
-**Residency**: France &#x20;
+**Author**: Felipe Muniz &#x20;
 **Project Start**: July 2024 &#x20;
 **Last Updated**: 2025 &#x20;
 **Contact**: [felipegmuniz.github.io](https://felipegmuniz.github.io)
