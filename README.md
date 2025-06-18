@@ -11,7 +11,7 @@
 This project is a geo-visualization and lead qualification tool designed for sales and marketing teams working in the food equipment sector. The regions of **Dijon** and **Beaune** in France were selected as a pilot area to map potential B2B leads such as:
 
 * **Restaurants**
-* **EHPADs** (retirement homes)
+* **EHPADs** (nursing homes)
 * **Schools and Colleges**
 
 The project leverages a filtered dataset and provides an **interactive map** and **heatmap layer** to visually assess geographical lead density and category segmentation.
